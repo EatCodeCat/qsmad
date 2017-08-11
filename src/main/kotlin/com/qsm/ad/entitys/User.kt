@@ -18,6 +18,6 @@ class User {
     var nikname = ""
     var password = ""
     var amount: Float? = null
-    var crateTime: java.sql.Timestamp? = null
+    var createTime: java.sql.Timestamp? = null
     var email: String? = null
 }

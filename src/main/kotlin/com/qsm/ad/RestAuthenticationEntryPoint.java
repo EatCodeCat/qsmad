@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Component(value = "authenticationEntryPoint")
+@Component
 public final class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override

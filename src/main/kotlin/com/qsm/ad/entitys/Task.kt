@@ -1,6 +1,8 @@
 package com.qsm.ad.entitys
 
 import javax.persistence.Entity
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
 import javax.persistence.Id
 
 
@@ -10,6 +12,7 @@ import javax.persistence.Id
 @Entity
 class Task {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Int? = null
     var taskName: String = ""
     var taskResult: String? = ""
