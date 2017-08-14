@@ -1,7 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
 import {Form, Input, Button} from 'antd';
-import {loginUser} from './../../actions/auth';
 
 import './Login.scss';
 
@@ -15,35 +13,10 @@ function noop() {
 class Login extends Component {
     static propTypes = {
         form: PropTypes.object.isRequired,
-        dispatch: PropTypes.func.isRequired
     }
+    handleSubmit(){
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-
-        const {dispatch} = this.props;
-        this.props.form.validateFields((errors) => {
-            if (errors) {
-                return false;
-            }
-            const creds = (this.props.form.getFieldsValue());
-            dispatch(loginUser(creds, this.loginFaileCallback));
-        });
     }
-
-    loginFaileCallback = (email, message) => {
-        const {setFields} = this.props.form;
-        const newValue = {
-            email: {
-                name: "email",
-                validating: false,
-                value: email,
-                errors: [message]
-            }
-        };
-        setFields(newValue);
-    }
-
     render() {
         const {getFieldDecorator} = this.props.form;
         const emailProps = getFieldDecorator('email', {
@@ -100,11 +73,4 @@ class Login extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    const {auth} = state;
-    return {
-        auth
-    };
-}
-
-export default connect(mapStateToProps)(createForm()(Login));
+export default createForm()(Login);

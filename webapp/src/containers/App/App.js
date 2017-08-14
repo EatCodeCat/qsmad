@@ -1,86 +1,44 @@
-import React, { PropTypes, Component } from 'react';
-import { connect } from 'react-redux';
-import Login from './../Login/Login';
-import { Link } from 'react-router';
-import './App.scss';
-import { Menu, Breadcrumb, Icon } from 'antd';
-const SubMenu = Menu.SubMenu;
+import React, {Component, PropTypes} from "react";
+import "./App.scss";
+import {Breadcrumb, Layout, Menu} from "antd";
+const {Header, Content, Footer} = Layout;
 
 class App extends Component {
-  static propTypes = {
-    children: PropTypes.element,
-    isAuthenticated: React.PropTypes.bool,
-    routing: PropTypes.object
-  };
 
-  constructor(props) {
-    super(props);
-    this.renderAuthenticatedPage = this.renderAuthenticatedPage.bind(this);
+    renderAuthenticatedPage() {
+        return (
+            <Layout className="layout">
+                <Header>
+                    <div className="logo"/>
+                    <Menu
+                        theme="dark"
+                        mode="horizontal"
+                        defaultSelectedKeys={['2']}
+                        style={{lineHeight: '64px'}}>
+                        <Menu.Item key="1">nav 1</Menu.Item>
+                        <Menu.Item key="2">nav 2</Menu.Item>
+                        <Menu.Item key="3">nav 3</Menu.Item>
+                    </Menu>
+                </Header>
+                <Content style={{padding: '0 50px'}}>
+                    <Breadcrumb style={{margin: '12px 0'}}>
+                        <Breadcrumb.Item>Home</Breadcrumb.Item>
+                        <Breadcrumb.Item>List</Breadcrumb.Item>
+                        <Breadcrumb.Item>App</Breadcrumb.Item>
+                    </Breadcrumb>
+                    <div style={{background: '#fff', padding: 24, minHeight: 280}}>Content</div>
+                </Content>
+                <Footer style={{textAlign: 'center'}}>
+                    Ant Design ©2016 Created by Ant UED
+                </Footer>
+            </Layout>
+        );
+    }
 
-    this.state = {
-      collapse: false
-    };
-  }
-
-  componentDidMount() {
-  }
-
-  renderAuthenticatedPage() {
-    return (
-      <div className="ant-layout-aside">
-        <aside className="ant-layout-sider">
-          <div className="ant-layout-logo"/>
-          <Menu mode="inline" theme="dark"
-            defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']}>
-            <SubMenu key="sub1" title={<span><Icon type="user" />用户管理</span>}>
-              <Menu.Item key="1">
-                <Link to={'/users'}>
-                  用户列表
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="2">角色配置</Menu.Item>
-            </SubMenu>
-          </Menu>
-        </aside>
-        <div className="ant-layout-main">
-          <div className="ant-layout-header" />
-          <div className="ant-layout-breadcrumb">
-            <Breadcrumb>
-              <Breadcrumb.Item>首页</Breadcrumb.Item>
-              <Breadcrumb.Item>用户管理</Breadcrumb.Item>
-              <Breadcrumb.Item>用户列表</Breadcrumb.Item>
-            </Breadcrumb>
-          </div>
-          <div className="ant-layout-container">
-            <div className="ant-layout-content">
-              <div style={{ height: 590 }}>
-                {this.props.children}
-              </div>
-            </div>
-          </div>
-          <div className="ant-layout-footer">
-          Ant Design 版权所有 © 2015 由蚂蚁金服体验技术部支持
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  render() {
-    const { isAuthenticated } = this.props;
-    return (
-      <div>
-        {isAuthenticated? this.renderAuthenticatedPage() : <Login/>}
-      </div>
-    );
-  }
+    render() {
+        return this.renderAuthenticatedPage();
+    }
 }
 
-function mapStateToProps(state) {
-  const { routing, auth: { isAuthenticated, user } } = state;
-  return {
-    isAuthenticated, user,routing
-  };
-}
 
-export default connect(mapStateToProps)(App);
+export default App;
