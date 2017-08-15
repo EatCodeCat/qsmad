@@ -1,14 +1,14 @@
 <template>
     <el-form ref="form" :model="form" label-width="80px" style="width: 700px;margin: 0 auto">
         <el-form-item label="活动名称">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.taskName"></el-input>
         </el-form-item>
         <el-form-item label="关键字">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.key"></el-input>
         </el-form-item>
         <el-form-item label="商品ID">
             <el-col :span="6">
-                <el-input v-model="form.name"></el-input>
+                <el-input v-model="form.goodslist"></el-input>
             </el-col>
         </el-form-item>
         <el-form-item label="执行时间">
