@@ -16,6 +16,8 @@ class Task {
     var id: Int? = null
     var taskName: String = ""
     var taskResult: String? = ""
+    var key = ""
+    var goodslist = ""
     var status: Int = 0
     var exec_time: java.sql.Timestamp? = null
     var log: String = ""

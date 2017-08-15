@@ -1,16 +1,14 @@
 {
   "presets": [
-    "es2015",
-    "stage-1",
-    "stage-2",
-    "react"
+    ["env", { "modules": false }],
+    "stage-2", "vue-app"
   ],
-  "plugins": [["antd", { "style": "css"}]],
+  "plugins": ["transform-runtime"],
+  "comments": false,
   "env": {
-    "development": {
-      "presets": [
-        "react-hmre"
-      ]
+    "test": {
+      "presets": ["env", "stage-2"],
+      "plugins": [ "istanbul" ]
     }
   }
 }
