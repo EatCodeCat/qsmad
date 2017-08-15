@@ -11,7 +11,7 @@ import java.util.List;
  * Created by think on 2017/8/11.
  */
 @Service
-public class UserService {
+public class UserService extends CrudService<User> {
 
     @Autowired
     UserRepository userRepository;
