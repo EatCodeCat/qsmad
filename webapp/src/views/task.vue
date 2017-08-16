@@ -42,6 +42,9 @@
             <el-table-column
                 prop="status"
                 label="状态">
+                <template scope="scope">
+                    {{status[scope.row.status]}}
+                </template>
             </el-table-column>
             <el-table-column
                 prop="status"
@@ -82,7 +85,8 @@
         data(){
             return {
                 baseUrl: '/api/task',
-                tableData: []
+                tableData: [],
+                status:{0:'暂停', 1 :'正在执行',2 :'停止', 3 :'等待执行'}
             }
         },
         created(){

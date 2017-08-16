@@ -24,6 +24,6 @@ class Task {
     var hour: Int? = null
     var minute: Int? = null
     var second: Int? = null
-    var userId: Int? = null
+    var username: String? = null
     var createTime: java.sql.Timestamp? = null
 }

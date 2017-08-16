@@ -35,6 +35,7 @@ public class TaskController extends CrudController<Task> {
                      HttpServletResponse response) {
         Authentication u = TokenAuthenticationService.getAuthentication((request));
         entity.setStatus(TaskStatus.WAITING);
+        entity.setUsername(u.getName());
         entity.setCreateTime(new Timestamp((new Date()).getTime()));
         return crudService.save(entity);
 
