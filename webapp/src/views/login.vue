@@ -9,7 +9,7 @@
                 <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="success"  @click="login" >登录</el-button>
+                <el-button type="success" @click="login">登录</el-button>
             </el-form-item>
 
         </el-form>
@@ -23,25 +23,27 @@
                 form: {},
                 rules: {
                     username: [
-                        { required: true, message: '账号不能为空', trigger: 'blur' },
+                        {required: true, message: '账号不能为空', trigger: 'blur'},
                     ],
                     password: [
-                        { required: true, message: '密码不能为空', trigger: 'blur' },
+                        {required: true, message: '密码不能为空', trigger: 'blur'},
                     ]
                 }
             }
         },
         created(){
-             localStorage.removeItem('Authorization');
+            localStorage.removeItem('Authorization');
+            this.$service.cleanAuth();
         },
         methods: {
             login(){
                 this.$refs['ruleForm'].validate((valid) => {
                     if (valid) {
-                        this.$service.login(this.form).then(res=>{
+                        this.$service.login(this.form).then(res => {
 
                             var authResoult = res.data.result
                             localStorage.setItem('Authorization', authResoult)
+                            this.$service.setAuth();
                             this.$router.push('/task')
 
                         })

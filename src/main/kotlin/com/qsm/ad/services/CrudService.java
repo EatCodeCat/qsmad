@@ -28,7 +28,7 @@ import java.util.Map;
 /**
  * Created by think on 2017/7/30.
  */
-public class CrudService<T> {
+public abstract class CrudService<T> {
     private org.slf4j.Logger log = LoggerFactory.getLogger(CrudService.class);
     @PersistenceContext
     protected EntityManager em;
@@ -77,7 +77,7 @@ public class CrudService<T> {
                     for (Map.Entry<String, Object> p : criterial.entrySet()) {
 
                         if ("String".equals(root.get(p.getKey()).getJavaType().getSimpleName())) {
-                            list.add(criteriaBuilder.like(root.get(p.getKey()), "%" + p.getValue() + "%"));
+                            list.add(criteriaBuilder.equal(root.get(p.getKey()), p.getValue()));
                         } else {
                             list.add(criteriaBuilder.equal(root.get(p.getKey()), p.getValue()));
                         }

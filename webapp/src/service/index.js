@@ -15,10 +15,6 @@ class Service {
         else {
             this.axios = axios
         }
-        if(localStorage['Authorization']){
-            this.axios.defaults.headers.common['Authorization'] = localStorage['Authorization'];
-        }
-
         this.axios.interceptors.response.use(function (response) {
             return response;
         },  (error)=> {
@@ -31,6 +27,14 @@ class Service {
             return Promise.reject(error);
         });
 
+    }
+    cleanAuth(){
+        delete this.axios.defaults.headers.common['Authorization']
+    }
+    setAuth(){
+        if(localStorage['Authorization']){
+            this.axios.defaults.headers.common['Authorization'] = localStorage['Authorization'];
+        }
     }
 
     //重构http.post，指定默认错误处理

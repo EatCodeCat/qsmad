@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface UserRepository extends BaseRepository<User> {
 
-    List<User> findByUsername(String username);
+    User findByUsername(String username);
 
 }

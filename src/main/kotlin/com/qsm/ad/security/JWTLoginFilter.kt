@@ -7,6 +7,7 @@ import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.AuthenticationException
+import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 import java.io.IOException
@@ -18,11 +19,14 @@ import javax.servlet.http.HttpServletResponse
 /**
  * Created by TQ on 2017/8/11.
  */
-class JWTLoginFilter(url: String, authManager: AuthenticationManager) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(url)) {
+class JWTLoginFilter(url: String, authManager: AuthenticationManager, service: UserDetailsService) : AbstractAuthenticationProcessingFilter(AntPathRequestMatcher(url)) {
 
     init {
         authenticationManager = authManager
+
     }
+
+    val userService = service
 
     @Throws(AuthenticationException::class, IOException::class, ServletException::class)
     override fun attemptAuthentication(

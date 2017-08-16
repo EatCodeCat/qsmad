@@ -7,13 +7,11 @@ import router from "./router";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-default/index.css";
 import "./assets/css/common.css";
-import VueResouce from "vue-resource";
 import Ibox from "./components/Ibox.vue";
 import Pagination from "./components/Pagination.vue";
 import Service from "./service";
 import {dateFormat} from "./utils";
 
-Vue.use(VueResouce);
 Vue.use(Service);
 
 Vue.component('ibox', Ibox);
@@ -45,10 +43,10 @@ Vue.mixin({
                     message: '保存成功',
                     type: 'success'
                 })
-                if(typeof cb == 'function'){
+                if (typeof cb == 'function') {
                     cb();
                 }
-                else{
+                else {
                     this.$router.go(-1);
                 }
 

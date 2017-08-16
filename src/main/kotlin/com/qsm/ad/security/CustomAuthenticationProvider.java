@@ -1,19 +1,30 @@
 package com.qsm.ad.security;
 
+import com.qsm.ad.entitys.User;
+import com.qsm.ad.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by TQ on 2017/8/11.
  */
-public // 自定义身份认证验证组件
-class CustomAuthenticationProvider implements AuthenticationProvider {
+@Component
+public class CustomAuthenticationProvider implements AuthenticationProvider {
+
+    @Autowired
+    public UserDetailsService service;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -21,8 +32,10 @@ class CustomAuthenticationProvider implements AuthenticationProvider {
         String name = authentication.getName();
         String password = authentication.getCredentials().toString();
 
+        UserDetails user = service.loadUserByUsername(name);
+
         // 认证逻辑
-        if (name.equals("admin") && password.equals("123456")) {
+        if (user != null &&  name.equals(user.getUsername()) && password.equals(user.getPassword())) {
 
             // 这里设置权限和角色
             ArrayList<GrantedAuthority> authorities = new ArrayList<>();
