@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -27,14 +29,13 @@ public abstract class CrudController<T> {
     }
 
     @RequestMapping(value = "/entity/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-    public T entityById(@PathVariable long id) {
+    public T entityById(@PathVariable int id) {
         return crudService.findOne(id);
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST, headers = "Accept=application/json")
-
-
-    public T save(@RequestBody T entity) {
+    public T save(@RequestBody T entity,HttpServletRequest request,
+                  HttpServletResponse response) {
         return crudService.save(entity);
     }
 
@@ -45,7 +46,7 @@ public abstract class CrudController<T> {
     }
 
     @RequestMapping(value = "/entity/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
-    public void delete(@PathVariable("id") long id) {
+    public void delete(@PathVariable("id") int id) {
         crudService.delete(id);
     }
 }

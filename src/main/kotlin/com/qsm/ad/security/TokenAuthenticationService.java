@@ -52,7 +52,7 @@ public class TokenAuthenticationService {
     }
 
     // JWT验证方法
-    static Authentication getAuthentication(HttpServletRequest request) {
+    public static Authentication getAuthentication(HttpServletRequest request) {
         // 从Header中拿到token
         String token = request.getHeader(HEADER_STRING);
 

@@ -6,7 +6,7 @@ import task from "@/views/task";
 import edittask from "@/views/edittask.vue";
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
     routes: [
         {
             path: '/',
@@ -19,7 +19,7 @@ export default new Router({
                     component: task,
                 },
                 {
-                    path: '/edittask',
+                    path: '/edittask/:id?',
                     name: 'edittask',
                     component: edittask,
                 }
@@ -33,3 +33,13 @@ export default new Router({
         }
     ]
 })
+router.beforeEach((to, from, next) => {
+    if (!localStorage['Authorization'] && to.path != '/login' ) {
+        alert("请登录！")
+        next({path: '/login'})
+    }
+    else{
+        next()
+    }
+})
+export default router;

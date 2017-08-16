@@ -13,11 +13,11 @@ import javax.persistence.Id
 class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null;
+    var id: Int = 0
     var taskName: String? = null
     var taskResult: String? = null
-    var goodsKey:String?=null
-    var goodsList:String? = null
+    var goodsKey: String? = null
+    var goodsList: String? = null
     var status: Int? = null
     var exec_time: java.sql.Timestamp? = null
     var log: String? = null
@@ -25,4 +25,5 @@ class Task {
     var minute: Int? = null
     var second: Int? = null
     var userId: Int? = null
+    var createTime: java.sql.Timestamp? = null
 }

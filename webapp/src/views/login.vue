@@ -1,15 +1,15 @@
 <template>
     <div class="login">
         <h3 style="text-align: center">qsm任务管理系统</h3>
-        <el-form label-width="80px" :model="form">
-            <el-form-item label="账号">
+        <el-form label-width="80px" :model="form" @submit="login" ref="ruleForm" :rules="rules">
+            <el-form-item label="账号" prop="username">
                 <el-input v-model="form.username"></el-input>
             </el-form-item>
-            <el-form-item label="密码">
-                <el-input v-model="form.password"></el-input>
+            <el-form-item label="密码" prop="password">
+                <el-input type="password" v-model="form.password"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="success">登录</el-button>
+                <el-button type="success"  @click="login" >登录</el-button>
             </el-form-item>
 
         </el-form>
@@ -20,12 +20,39 @@
         data(){
             return {
                 baseUrl: '',
-                form: {}
+                form: {},
+                rules: {
+                    username: [
+                        { required: true, message: '账号不能为空', trigger: 'blur' },
+                    ],
+                    password: [
+                        { required: true, message: '密码不能为空', trigger: 'blur' },
+                    ]
+                }
             }
         },
         created(){
+             localStorage.removeItem('Authorization');
         },
-        methods: {},
+        methods: {
+            login(){
+                this.$refs['ruleForm'].validate((valid) => {
+                    if (valid) {
+                        this.$service.login(this.form).then(res=>{
+
+                            var authResoult = res.data.result
+                            localStorage.setItem('Authorization', authResoult)
+                            this.$router.push('/task')
+
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+
+            }
+        },
         components: {}
     }
 </script>

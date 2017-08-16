@@ -28,8 +28,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/api/data/': {
-            target: 'http://106.14.152.229:7080',
+        '/api/': {
+            target: 'http://localhost:8080',
             changeOrigin: true,
         },
         '/wxanacms/': {

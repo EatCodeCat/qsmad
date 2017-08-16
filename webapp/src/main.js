@@ -94,6 +94,9 @@ Vue.mixin({
                 })
 
             })
+        },
+        getById(id){
+            return this.$service.resource(this.baseUrl).getById(id);
         }
     },
     created(){

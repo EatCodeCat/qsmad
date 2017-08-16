@@ -54,11 +54,11 @@ public class CrudService<T> {
         repository.delete(t);
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         repository.delete(id);
     }
 
-    public T findOne(Long id) {
+    public T findOne(int id) {
         return repository.findOne(id);
     }
 
@@ -89,7 +89,7 @@ public class CrudService<T> {
             }
         };
         Page<T> page = repository.findAll(specification, pageable);
-        return  page;
+        return page;
     }
 
     /**

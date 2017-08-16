@@ -12,5 +12,7 @@ import org.springframework.stereotype.Service;
 public class TaskService extends CrudService<Task> {
 
     @Autowired
-    TaskRepository repository;
+    public  void setRepository( TaskRepository repository){
+        super.setRepository(repository);
+    }
 }

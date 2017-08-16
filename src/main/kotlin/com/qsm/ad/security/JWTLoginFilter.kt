@@ -54,7 +54,7 @@ class JWTLoginFilter(url: String, authManager: AuthenticationManager) : Abstract
     override fun unsuccessfulAuthentication(request: HttpServletRequest, response: HttpServletResponse, failed: AuthenticationException) {
 
         response.contentType = "application/json"
-        response.status = HttpServletResponse.SC_OK
+        response.status = HttpServletResponse.SC_UNAUTHORIZED
         response.outputStream.println(JSONResult.fillResultString(500, "Internal Server Error!!!", ""))
     }
 }

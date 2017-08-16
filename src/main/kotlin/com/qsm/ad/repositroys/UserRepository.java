@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by think on 2017/7/30.
  */
-public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
+public interface UserRepository extends BaseRepository<User> {
 
     List<User> findByUsername(String username);
 

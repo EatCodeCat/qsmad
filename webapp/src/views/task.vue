@@ -22,6 +22,20 @@
                 label="任务名称">
             </el-table-column>
             <el-table-column
+                prop="goodsKey"
+                label="关键字">
+            </el-table-column>
+            <el-table-column
+                prop="taskName"
+                label="商品ID列表">
+                <template scope="scope">
+                    <el-tag :type="'primary'" v-for="(item, key) in getGoodsList(scope.row).split(',')"
+                            style="margin-left: 3px" :key="key"
+                            close-transition>{{item}}
+                    </el-tag>
+                </template>
+            </el-table-column>
+            <el-table-column
                 prop="taskResult"
                 label="执行结果">
             </el-table-column>
@@ -32,6 +46,10 @@
             <el-table-column
                 prop="status"
                 label="等待执行时间">
+                <template scope="scope">
+                    {{scope.row.hour}}:{{scope.row.minute}}:{{scope.row.second}}
+                </template>
+
             </el-table-column>
             <el-table-column
                 prop="status"
@@ -43,36 +61,48 @@
                 <template scope="scope">
                     <el-button
                         size="small"
-                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                        @click="handleEdit(scope.$index, scope.row)">编辑
+                    </el-button>
                     <el-button
                         size="small"
                         type="danger"
-                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                        @click="handleDelete(scope.$index, scope.row)">删除
+                    </el-button>
                 </template>
             </el-table-column>
 
         </el-table>
+        <div>
+
+        </div>
     </div>
 </template>
 <script>
-    import ElRow from "element-ui/packages/row/src/row";
-    import ElCol from "element-ui/packages/col/src/col";
     export default {
         data(){
             return {
-                baseUrl: '',
+                baseUrl: '/api/task',
+                tableData: []
             }
         },
         created(){
         },
-        methods: {},
-        components: {
-            ElCol,
-            ElRow}
+        methods: {
+            handleDelete(i, row){
+                this.del(row.id)
+            },
+            handleEdit(i, row){
+                this.$router.push('/edittask/' + row.id)
+            },
+            getGoodsList(row){
+                return row.goodsList || ''
+            }
+        },
+        components: {}
     }
 </script>
 <style scope>
-    #task{
+    #task {
         background-color: #fff;
         padding: 10px;
     }
