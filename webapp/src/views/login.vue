@@ -1,6 +1,7 @@
 <template>
     <div class="login">
         <h3 style="text-align: center">qsm任务管理系统</h3>
+
         <el-form label-width="80px" :model="form" @submit="login" ref="ruleForm" :rules="rules">
             <el-form-item label="账号" prop="username">
                 <el-input v-model="form.username"></el-input>
@@ -46,8 +47,12 @@
                             this.$service.setAuth();
                             this.$router.push('/task')
 
+                        }, error=>{
+                            this.failMsg('账号密码错误');
                         })
                     } else {
+
+
                         console.log('error submit!!');
                         return false;
                     }

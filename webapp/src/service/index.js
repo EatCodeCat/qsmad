@@ -18,14 +18,14 @@ class Service {
         this.axios.interceptors.response.use(function (response) {
             return response;
         },  (error)=> {
-            console.log(error)
-            Message.error('网络错误，请重试');
-            //Vue.router.push('/login')
-
+            if(error.response.status >=500){
+                Message.error('网络错误，请重试');
+            }
             this.loader.close();
             // 对响应错误做点什么
             return Promise.reject(error);
         });
+        this.setAuth();
 
     }
     cleanAuth(){
