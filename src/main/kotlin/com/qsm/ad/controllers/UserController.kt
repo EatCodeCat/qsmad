@@ -53,6 +53,8 @@ class UserController : CrudController<User>() {
 
             map.put(e.attr("name"), e.`val`());
         }
+        var img = doc.select("#qcaptcha_img").first()
+        map.put("imgcode", ele.attr("src"))
         map.put("txtLoginID", name)
         map.put("txtLoginPwd", password)
         return map
@@ -84,7 +86,6 @@ class UserController : CrudController<User>() {
         stream.flush()
         stream.close()
         httpClient.close()
-
         return
     }
 }
