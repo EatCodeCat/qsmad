@@ -23,6 +23,7 @@ import org.apache.http.message.BasicNameValuePair
 import java.util.ArrayList
 import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.protocol.HTTP
+import javax.servlet.http.HttpSession
 
 
 /**
@@ -41,30 +42,31 @@ class UserController : CrudController<User>() {
 
     fun qsmLoginCode(): String {
         val doc = Jsoup.connect("https://qsm.qoo10.jp/GMKT.INC.Gsm.Web/login.aspx").get()
-        var ele = doc.select("#qcaptcha_img").first()
-        return ele.attr("src")
+        var ele = doc.select("#captcha_req_no").first()
+        return ele.`val`()
     }
 
-    fun qsmLoginForm(name: String, password: String): Map<String, String> {
+    fun qsmLoginForm(name: String, password: String, code: String, captcha_req_no: String): Map<String, String> {
         val doc = Jsoup.connect("https://qsm.qoo10.jp/GMKT.INC.Gsm.Web/login.aspx").get()
         var ele = doc.select("form input")
         val map = mutableMapOf<String, String>()
         for (e in ele) {
-
             map.put(e.attr("name"), e.`val`());
         }
+
         var img = doc.select("#qcaptcha_img").first()
-        map.put("imgcode", ele.attr("src"))
+        map.put("captcha_req_no", captcha_req_no)
+        map.put("recaptcha_response_field", code)
         map.put("txtLoginID", name)
         map.put("txtLoginPwd", password)
         return map
     }
 
     @RequestMapping(value = "/qsmlogin", method = arrayOf(RequestMethod.POST))
-    fun qsmlogin(name: String, password: String, code: String): String {
+    fun qsmlogin(name: String, password: String, code: String, session: HttpSession): String {
         val httpClient = DefaultHttpClient()
         var httpPost = HttpPost("https://qsm.qoo10.jp/GMKT.INC.Gsm.Web/login.aspx")
-        var form = qsmLoginForm(name, password)
+        var form = qsmLoginForm(name, password, code, session.getAttribute("qcaptchr_req_no").toString())
         val params = arrayListOf(*form.map { BasicNameValuePair(it.key, it.value) }.toTypedArray())
         httpPost.entity = UrlEncodedFormEntity(params, HTTP.UTF_8)
         var httpResponse = httpClient.execute(httpPost)
@@ -74,10 +76,12 @@ class UserController : CrudController<User>() {
 
     @RequestMapping(value = "/image", method = arrayOf(RequestMethod.GET))
     @Throws(IOException::class)
-    fun image(response: HttpServletResponse) {
+    fun image(response: HttpServletResponse, session: HttpSession) {
+
         val httpClient = DefaultHttpClient()
-        var url = qsmLoginCode()
-        var httpGet = HttpGet(url)
+        var qcaptchr_req_no = qsmLoginCode()
+        var httpGet = HttpGet("https://qsm.qoo10.jp/GMKT.INC.Gsm.Web/Common/Page/qcaptcha.ashx?qcaptchr_req_no=" + qcaptchr_req_no)
+        session.setAttribute("qcaptchr_req_no", qcaptchr_req_no);
         var httpResponse = httpClient.execute(httpGet)
         val entity = httpResponse.entity
         response.contentType = "image/png"
