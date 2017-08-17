@@ -38,5 +38,5 @@ class CodeImgProcessor : PageProcessor {
 
 var url = "https://qsm.qoo10.jp/GMKT.INC.Gsm.Web/Common/Page/qcaptcha.ashx?qcaptchr_req_no=rCim42bFfU_g_2_5sHf9d2GyfjZ8fsHRfQyFYqnMMSQvjwFyU0HosCyLnHvIeqe4a4de"
 fun getQsmLoginCodeResult(pip: Pipeline) {
-    Spider.create(CodeImgProcessor()).addUrl(url).addPipeline(pip).thread(1).run()
+    Spider.create(CodeImgProcessor()).addUrl(url).addPipeline(pip).runAsync()
 }
