@@ -15,6 +15,7 @@ import java.util.Map;
 @RestController
 public abstract class CrudController<T> {
 
+
     CrudService<T> crudService;
 
     public void setCrudService(CrudService<T> crudService) {

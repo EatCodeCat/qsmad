@@ -26,4 +26,7 @@ class Task {
     var second: Int? = null
     var username: String? = null
     var createTime: java.sql.Timestamp? = null
+    var qsmUsername: String? = null
+    var qsmPassword: String? = null
+    var cookie: String? = null
 }
