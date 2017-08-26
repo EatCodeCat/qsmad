@@ -160,8 +160,3 @@ fun getTableNameFormEntity(c: Class<*>?): String {
     return ""
 }
 
-
-fun main(args: Array<String>) {
-
-}
-

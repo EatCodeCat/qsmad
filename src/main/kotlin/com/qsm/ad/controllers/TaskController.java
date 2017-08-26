@@ -2,6 +2,7 @@ package com.qsm.ad.controllers;
 
 import com.qsm.ad.constant.TaskStatus;
 import com.qsm.ad.entitys.Task;
+import com.qsm.ad.job.TaskScheduler;
 import com.qsm.ad.security.TokenAuthenticationService;
 import com.qsm.ad.services.TaskService;
 import lombok.experimental.var;
@@ -37,8 +38,11 @@ public class TaskController extends CrudController<Task> {
         entity.setStatus(TaskStatus.WAITING);
         entity.setUsername(u.getName());
         entity.setCreateTime(new Timestamp((new Date()).getTime()));
-        return crudService.save(entity);
 
-
+        Task e = crudService.save(entity);
+        TaskScheduler.INSTANCE.addTaskJob(String.valueOf(e.getId()), String.format("%s %s %s %s %s %s %s", e.getSecond(),
+                e.getMinute(), e.getHour(), "?", "*", "?"));
+        return e;
     }
+
 }

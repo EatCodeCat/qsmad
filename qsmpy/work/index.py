@@ -161,12 +161,14 @@ def do_touzhuInfo_list(keyword, gd_no_list, _id):
         })
         cur.execute('update task set result=?, exec_time=? where id=' +
                     str(_id), [json.dumps(result), now_time_str()])
+
     except Exception as e:
         cur.execute('update task set result=?, exec_time=? where id=' + str(_id),
                     [json.dump({'touzhuresult': '任务异常' + str(e)}), now_time_str()])
         log_error('异常任务', e)
-    con.commit()
-    con.close()
+    finally:
+        con.commit()
+        con.close()
 
 
 def get_db():

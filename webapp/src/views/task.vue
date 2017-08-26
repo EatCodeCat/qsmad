@@ -2,13 +2,13 @@
     <div id=task>
 
         <el-row style="margin-bottom: 10px;line-height: 36px">
-            <el-col :span="3">
+            <el-col :span="4">
                 <strong>qsm广告自动投注任务列表</strong>
             </el-col>
             <el-col :span="3">
                 <el-button @click="dialogFormVisible = true" style="float: left" type="info">登录QSM账号</el-button>
             </el-col>
-            <el-col :span="4">
+            <el-col :span="17">
                 <el-button @click="$router.push('/edittask')" style="float: right" type="info">新增任务</el-button>
             </el-col>
 
