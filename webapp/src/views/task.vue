@@ -108,8 +108,6 @@
 
 </template>
 <script>
-    import ElCol from "element-ui/packages/col/src/col";
-    import ElButton from "../../node_modules/element-ui/packages/button/src/button";
     export default {
         data(){
             return {
@@ -149,10 +147,6 @@
             reflush(){
                 this.codeSrc = '/api/user/image?t=' + (new Date()).getTime()
             }
-        },
-        components: {
-            ElButton,
-            ElCol
         }
     }
 </script>

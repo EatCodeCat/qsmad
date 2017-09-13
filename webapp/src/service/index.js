@@ -18,15 +18,15 @@ class Service {
         this.axios.interceptors.response.use(function (response) {
             return response;
         },  (error)=> {
+            console.log(error);
+            alert(error.exception)
             if(error.response.status >=500){
-                Message.error('网络错误，请重试');
+                Message.error('网络错误，请重试!');
             }
             this.loader.close();
-            // 对响应错误做点什么
             return Promise.reject(error);
         });
         this.setAuth();
-
     }
     cleanAuth(){
         delete this.axios.defaults.headers.common['Authorization']
